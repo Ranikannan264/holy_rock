@@ -1,0 +1,12 @@
+
+    {% extends 'base.html' %}
+{% block content %}
+  <h2>Order Placed Successfully!</h2>
+  <p>Your order ID: {{ order.id }}</p>
+  <ul>
+    {% for item in order.items.all %}
+      <li>{{ item.product.name }} - Qty: {{ item.quantity }} - ₹{{ item.total }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+

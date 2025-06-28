@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Checkout</h2>
+
+<h3>Product Summary</h3>
+<ul>
+  {% for item in items %}
+    <li>
+      <strong>Product:</strong> {{ item.product.name }}<br>
+      <strong>Price:</strong> ₹{{ item.product.price }}<br>
+      <strong>Quantity:</strong> {{ item.quantity }}<br>
+      <strong>Total:</strong> ₹{{ item.total_price }}<br><br>
+    </li>
+  {% endfor %}
+</ul>
+
+<h3>Shipping Info</h3>
+<form method="post" action="{% url 'place_order' %}">
+  {% csrf_token %}
+  <label for="address">Address:</label><br>
+  <textarea name="address" required></textarea><br><br>
+
+  <label for="phone">Phone Number:</label><br>
+  <input type="text" name="phone" required><br><br>
+</form>
+
+<h4>Total Price: ₹{{ total }}</h4>
+
+<form method="post" action="{% url 'place_order' %}">
+    {% csrf_token %}
+    <label>Address:</label><br>
+    <input type="text" name="address" required><br><br>
+
+    <label>Phone:</label><br>
+    <input type="text" name="phone" required><br><br>
+
+    <button type="submit">Pay (Mock)& Place Order</button>
+</form>
+
+<!-- Back to Cart button -->
+<a href="{% url 'view_cart' %}">
+  <button type="button">🛒 Back to Cart</button>
+</a>
+
+{% endblock %}

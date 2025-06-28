@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+{% block content %}
+<h2>Products</h2>
+<ul>
+  {% for product in products %}
+    <li>
+      <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a> - ₹{{ product.price }}
+    </li>
+
+     {% if request.user.is_authenticated %}
+        {% if request.user == product.owner or request.user.is_staff %}
+          <a href="{% url 'product_edit' product.id %}">✏️Edit</a>
+          <a href="{% url 'product_delete' product.id %}">🗑️ Delete</a>
+          <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+
+        {% endif %}
+      {% endif %}
+    </li>
+    <hr>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ product.name }}</h2>
+<p>{{ product.description }}</p>
+<p><strong>Price:</strong> ₹{{ product.price }}</p>
+<p><a href="/">Back to products</a></p>
+{% if user == product.owner or user.is_staff %}
+    <a href="{% url 'product_edit' product.pk %}">Edit</a>
+    <a href="{% url 'product_delete' product.pk %}">Delete</a>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <form method="post" action="{% url 'add_to_cart' product.id %}">
+    {% csrf_token %}
+    
+  </form>
+{% endif %}
+<br>
+
+<a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+
+</br>
+{% endblock %}
+
+</body>
+</html>
