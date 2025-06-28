@@ -1,0 +1,35 @@
+Django E-commerce API Documentation
+Authentication APIs
+POST /api/token/ - Obtain JWT tokens
+Request: {"username": "admin", "password": "yourpassword"}
+Response: {"access": "...", "refresh": "..."}
+POST /api/token/refresh/ - Refresh JWT access token
+Request: {"refresh": "..."}
+POST /register/ - Register a new user
+POST /accounts/login/ - Login user
+POST /logout/ - Logout user (JWT blacklist)
+Store
+GET / - Homepage
+Product APIs
+GET /products/api/products/ - List products
+GET /products/api/products/<id>/ - Product details
+GET /products/product/ - Product list (HTML)
+GET /products/product/<pk>/ - Product details (HTML)
+GET /products/product/<pk>/edit/ - Edit form (Admin)
+GET /products/product/<pk>/delete/ - Delete product (Admin)
+Cart APIs
+GET /cart/ - View cart items
+GET /cart/add/<product_id>/ - Add to cart
+POST /cart/update/<item_id>/ - Update quantity
+GET /cart/delete/<item_id>/ - Remove from cart
+Order APIs
+POST /order/place/ - Place order (with address and phone)
+GET /order/success/<order_id>/ - Success page
+GET /order/checkout/ - Checkout form
+GET /order/history/ - View past orders
+JWT Authorization Header
+Authorization: Bearer <access_token>
+Example cURL
+curl -X POST http://localhost:8000/api/token/ -H "Content-Type: application/json" -d '{"username":
+"admin", "password": "yourpassword"}'
+curl http://localhost:8000/products/api/products/
